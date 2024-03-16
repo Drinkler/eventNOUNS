@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
+import NFTContract from "../../hardhat/artifacts/contracts/nft.sol/NFT.json";
 import SampleERC20Token from "../../hardhat/artifacts/contracts/token.sol/SampleERC20Token.json";
+import VenueCard from "./../components/VenueCard.js";
 import { ethers } from "ethers";
 import type { NextPage } from "next";
 
@@ -13,6 +15,7 @@ const Home: NextPage = () => {
     const rpcUrl = "https://spicy-rpc.chiliz.com/";
     const provider = new ethers.JsonRpcProvider(rpcUrl);
 
+    // Warning: Storing the private key in client-side code is insecure and should be avoided.
     const privateKey = "0x6003dbf575e0796ea69d6f1ad95c9715a8bdac13d3a8199401c183b2458741b1";
     const signer = new ethers.Wallet(privateKey, provider);
 
@@ -26,65 +29,44 @@ const Home: NextPage = () => {
     console.log("Contract deployed to:", contract.getAddress());
   };
 
+  const [baseURI, setBaseURI] = useState("");
+
+  const deployNFT = async () => {
+    const rpcUrl = "https://spicy-rpc.chiliz.com/"; // Use the appropriate RPC URL
+    const provider = new ethers.JsonRpcProvider(rpcUrl);
+    const privateKey = "0x6003dbf575e0796ea69d6f1ad95c9715a8bdac13d3a8199401c183b2458741b1";
+    const signer = new ethers.Wallet(privateKey, provider);
+
+    const contractFactory = new ethers.ContractFactory(NFTContract.abi, NFTContract.bytecode, signer);
+    // Assuming the constructor of your NFT contract requires a baseURI
+    const contract = await contractFactory.deploy(tokenName, tokenSymbol, baseURI);
+
+    console.log("Deploying NFT Contract...");
+
+    await contract.waitForDeployment();
+
+    console.log("NFT Contract deployed to:", contract.getAddress());
+  };
+
+  const venues = [
+    { id: 1, imageUrl: "https://noun-api.com/beta/pfp", name: "Venue 1", description: "This is an awesome venue 1." },
+    { id: 2, imageUrl: "https://noun-api.com/beta/pfp", name: "Venue 2", description: "This is an awesome venue 2." },
+    { id: 3, imageUrl: "https://noun-api.com/beta/pfp", name: "Venue 3", description: "This is an awesome venue 3." },
+  ];
+
+  // Function to handle click on a venue card
+  const handleVenueClick = (venueId: number) => {
+    console.log(`Venue ${venueId} clicked`);
+    // Implement navigation or any other logic upon clicking a venue card
+  };
+
   return (
     <>
-      <div className="flex items-center flex-col flex-grow pt-10">
-        <div className="px-5">
-          <h1 className="text-center mb-8">
-            <span className="block text-2xl mb-2">Welcome to</span>
-            <span className="block text-4xl font-bold">EventNOUNS DAO</span>
-          </h1>
-          <p className="text-center text-lg">
-            Jumpstart your journey with EventNOUNS by customizing{" "}
-            <code className="italic bg-base-300 text-base font-bold max-w-full break-words break-all inline-block">
-              packages/nextjs/app/pages/index.tsx
-            </code>
-          </p>
-          <p className="text-center text-lg">
-            Craft your DAO's governance and events smart contracts in{" "}
-            <code className="italic bg-base-300 text-base font-bold max-w-full break-words break-all inline-block">
-              packages/hardhat/contracts/EventNouns.sol
-            </code>
-          </p>
-        </div>
+      <div className="flex justify-between items-center pt-4 px-5">
+        <h1 className="text-3xl font-bold">EventNOUNS</h1>
       </div>
-
-      <div className="bg-base-300 w-full mt-16 px-8 py-12 flex flex-wrap justify-center gap-8">
-        <div className="flex flex-col bg-base-100 px-6 py-6 text-center items-center max-w-xs rounded-3xl">
-          <img
-            src="https://noun-api.com/beta/pfp"
-            alt="Description of First Image"
-            className="h-32 w-32 object-cover rounded-full mb-4"
-          />
-          <p>Description or caption for the first image</p>
-        </div>
-        <div className="flex flex-col bg-base-100 px-6 py-6 text-center items-center max-w-xs rounded-3xl">
-          <img
-            src="https://noun-api.com/beta/pfp"
-            alt="Description of Second Image"
-            className="h-32 w-32 object-cover rounded-full mb-4"
-          />
-          <p>Description or caption for the second image</p>
-        </div>
-        <div className="flex flex-col bg-base-100 px-6 py-6 text-center items-center max-w-xs rounded-3xl">
-          <img
-            src="https://noun-api.com/beta/pfp"
-            alt="Description of Third Image"
-            className="h-32 w-32 object-cover rounded-full mb-4"
-          />
-          <p>Description or caption for the third image</p>
-        </div>
-        <div className="flex flex-col bg-base-100 px-6 py-6 text-center items-center max-w-xs rounded-3xl">
-          <img
-            src="https://noun-api.com/beta/pfp"
-            alt="Description of Fourth Image"
-            className="h-32 w-32 object-cover rounded-full mb-4"
-          />
-          <p>Description or caption for the fourth image</p>
-        </div>
-      </div>
-
-      <div className="mt-8 text-center">
+      <div className="text-center mt-10">
+        <h2 className="text-2xl font-bold mb-8">Create a Venue</h2>
         <input
           className="mr-2 border-2"
           placeholder="Token Name"
@@ -100,6 +82,33 @@ const Home: NextPage = () => {
         <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onClick={deployToken}>
           Create Token
         </button>
+      </div>
+
+      <div className="text-center mt-10">
+        <input
+          className="mr-2 border-2"
+          placeholder="Base URI"
+          value={baseURI}
+          onChange={e => setBaseURI(e.target.value)}
+        />
+        <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onClick={deployNFT}>
+          Deploy NFT
+        </button>
+      </div>
+
+      <div className="mt-16 px-8 py-12 bg-base-300">
+        <h3 className="text-center text-2xl font-bold mb-8">Venues Overview</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+          {venues.map(({ id, imageUrl, name, description }) => (
+            <VenueCard
+              key={id}
+              imageUrl={imageUrl}
+              name={name}
+              description={description}
+              onClick={() => handleVenueClick(id)}
+            />
+          ))}
+        </div>
       </div>
     </>
   );
