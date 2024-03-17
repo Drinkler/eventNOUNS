@@ -30,6 +30,21 @@ const evmNetworks = [
     rpcUrls: ["https://spicy-rpc.chiliz.com"],
     vanityName: "Chiliz",
   },
+  {
+    blockExplorerUrls: ["https://polygonscan.com/"],
+    chainId: 137,
+    chainName: "Matic Mainnet",
+    iconUrls: ["https://app.dynamic.xyz/assets/networks/polygon.svg"],
+    name: "Polygon",
+    nativeCurrency: {
+      decimals: 18,
+      name: "MATIC",
+      symbol: "MATIC",
+    },
+    networkId: 137,
+    rpcUrls: ["https://polygon-rpc.com"],
+    vanityName: "Polygon",
+  },
 ];
 
 const ScaffoldEthApp = ({ children }: { children: React.ReactNode }) => {
