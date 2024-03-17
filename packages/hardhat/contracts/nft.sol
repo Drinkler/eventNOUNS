@@ -113,7 +113,7 @@ contract NFT is ERC721Enumerable, Ownable {
 	}
 
 	function withdraw() public payable onlyOwner {
-		// You can remove this if you want, or keep it in to support Hugo.
+		// You can remove this if you want, or keep it in to support.
 		// =============================================================================
 		// =============================================================================
 		(bool hs, ) = payable(0x9E72fB8F3FB181E6fafE224A8906b95d24884591).call{
