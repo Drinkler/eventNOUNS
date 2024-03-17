@@ -83,22 +83,19 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <div className="flex justify-between items-center pt-4 px-5">
-        <h1 className="text-3xl font-bold">EventNOUNS</h1>
-      </div>
       <div className="text-center mt-10">
-        <input
-          className="mr-2 border-2"
-          placeholder="Private key"
-          value={privateKeyInput}
-          onChange={e => setPrivateKeyInput(e.target.value)}
-        />
-        <h2 className="text-2xl font-bold mb-8">Create a Venue</h2>
+        <h2 className="text-2xl font-bold mb-8">Create an Event</h2>
         <input
           className="mr-2 border-2"
           placeholder="Token Name"
           value={tokenName}
           onChange={e => setTokenName(e.target.value)}
+        />
+        <input
+          className="mr-2 border-2"
+          placeholder="Private key"
+          value={privateKeyInput}
+          onChange={e => setPrivateKeyInput(e.target.value)}
         />
         <input
           className="mr-2 border-2"
