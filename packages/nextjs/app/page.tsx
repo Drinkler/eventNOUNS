@@ -10,14 +10,14 @@ import type { NextPage } from "next";
 const Home: NextPage = () => {
   const [tokenName, setTokenName] = useState("");
   const [tokenSymbol, setTokenSymbol] = useState("");
+  const [privateKeyInput, setPrivateKeyInput] = useState("");
 
   const deployToken = async () => {
     const rpcUrl = "https://spicy-rpc.chiliz.com/";
     const provider = new ethers.JsonRpcProvider(rpcUrl);
 
     // Warning: Storing the private key in client-side code is insecure and should be avoided.
-    const privateKey = "0x6003dbf575e0796ea69d6f1ad95c9715a8bdac13d3a8199401c183b2458741b1";
-    const signer = new ethers.Wallet(privateKey, provider);
+    const signer = new ethers.Wallet(privateKeyInput, provider);
 
     const contractFactory = new ethers.ContractFactory(SampleERC20Token.abi, SampleERC20Token.bytecode, signer);
     const contract = await contractFactory.deploy(tokenName, tokenSymbol);
@@ -34,8 +34,7 @@ const Home: NextPage = () => {
   const deployNFT = async () => {
     const rpcUrl = "https://spicy-rpc.chiliz.com/"; // Use the appropriate RPC URL
     const provider = new ethers.JsonRpcProvider(rpcUrl);
-    const privateKey = "0x6003dbf575e0796ea69d6f1ad95c9715a8bdac13d3a8199401c183b2458741b1";
-    const signer = new ethers.Wallet(privateKey, provider);
+    const signer = new ethers.Wallet(privateKeyInput, provider);
 
     const contractFactory = new ethers.ContractFactory(NFTContract.abi, NFTContract.bytecode, signer);
     // Assuming the constructor of your NFT contract requires a baseURI
@@ -66,6 +65,12 @@ const Home: NextPage = () => {
         <h1 className="text-3xl font-bold">EventNOUNS</h1>
       </div>
       <div className="text-center mt-10">
+        <input
+          className="mr-2 border-2"
+          placeholder="Private key"
+          value={privateKeyInput}
+          onChange={e => setPrivateKeyInput(e.target.value)}
+        />
         <h2 className="text-2xl font-bold mb-8">Create a Venue</h2>
         <input
           className="mr-2 border-2"
