@@ -1,4 +1,40 @@
-# 🏗 Scaffold-ETH 2
+# eventNOUNS
+
+## Introduction
+eventNOUNS is a transformative platform designed to bridge the gap between event venues and their patrons through a novel rewards mechanism using tokens. Developed at ETHGlobal London, eventNOUNS introduces a Web3 framework enabling event spaces to recognize and reward their loyal customers.
+
+## Features
+- Wallet Integration: Instant access to a wallet for issuing 'Fan Tokens' post-onboarding.
+- Token Issuance: Automatic creation of an Ethereum wallet for NFT-based tickets and engagement reward tokens issuance.
+- Happenings: Ability to create events or experiences, represented by NFTs granting access and allocations of 'Fan Tokens' and rewards tokens.
+- Fan Tokens: Venue-specific tokens redeemable for special access and experiences.
+- Engagement Tokens: Usable across any event space within the eventNOUNS platform for enhanced experiences.
+- DAO Creation: Facilitates venues in creating their own DAOs for community governance.
+- NFT Tickets: Ticketing solution through NFTs for events and experiences.
+
+## How It's Made
+### Technologies Used
+- Dynamics: Simplifies the venue onboarding process with its multi-wallet multichain feature, enabling automatic wallet creation.
+Scaffold-eth: Serves as the foundation for the frontend, incorporating Next.js, Ether.js, and Hardhat for a robust Web3 application.
+OpenZeppelin Libraries: For secure and standard-compliant smart contract functionalities, particularly ERC721Enumerable and Ownable contracts.
+- Ethers.js: Facilitates smart contract interactions, including deployment and management of ERC20 and ERC721 contracts.
+
+### Workflow
+- Venue Onboarding: Upon signing up, venues receive a wallet for issuing 'Fan Tokens' and an Ethereum wallet for NFTs and engagement tokens.
+- Happening Creation: Venues can create tickets (NFTs) for events/experiences, which are minted on the chiliz blockchain.
+- Fan Engagement: Fans with an ApeCoin NFT can access and purchase 'Happenings', receiving 'Fan Tokens' and rewards tokens.
+DAO Integration: Enables venues to manage community proposals and voting through their DAOs, enhancing engagement and governance.
+Implementation
+- NFT and Token Deployment: Utilizes Ethers.js for deploying ERC20 tokens and ERC721 NFTs, enabling venues to mint and manage their digital assets.
+- User Interface: A user-friendly frontend allows fans to browse and purchase 'Happenings', interact with venues, and participate in DAOs.
+- Security and Compliance: By leveraging OpenZeppelin contracts, eventNOUNS ensures the safety and standard adherence of its token and NFT functionalities.
+
+
+## Planned Improvements
+- DAO Management: Enhancements to allow venues to create, manage, and interact with their DAOs directly from the platform.
+- Fan Engagement: Integration of NFTs, Fan Tokens, and ApeCoins to influence DAO participation, proposal creation, and voting mechanisms.
+
+## Scaffold-ETH
 
 <h4 align="center">
   <a href="https://docs.scaffoldeth.io">Documentation</a> |
