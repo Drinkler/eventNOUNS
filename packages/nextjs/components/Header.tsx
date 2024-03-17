@@ -20,6 +20,18 @@ export const menuLinks: HeaderMenuLink[] = [
     label: "Home",
     href: "/",
   },
+  {
+    label: "About Us",
+    href: "/",
+  },
+  {
+    label: "Contact",
+    href: "/",
+  },
+  {
+    label: "Apecoin",
+    href: "/",
+  },
 ];
 
 export const HeaderMenuLinks = () => {
